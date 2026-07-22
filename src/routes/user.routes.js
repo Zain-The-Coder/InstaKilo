@@ -4,10 +4,14 @@ import {
   getMyProfile,
   getUserProfile,
   updateProfile,
+} from "../controllers/userController/index.js";
+import {
   followUser,
   unfollowUser,
   getFollowers,
-} from "../controllers/userController/index.js";
+  getFollowing,
+  getSuggestions,
+} from "../controllers/followController/index.js";
 
 const userRouter = Router();
 
@@ -20,14 +24,20 @@ userRouter.route("/me")
   .get(getMyProfile)
   .patch(updateProfile);
 
-// POST /api/v1/users/:id/follow
-userRouter.post("/:id/follow", followUser);
+// POST /api/v1/users/:username/follow
+userRouter.post("/:username/follow", followUser);
 
-// POST /api/v1/users/:id/unfollow
-userRouter.post("/:id/unfollow", unfollowUser);
+// POST /api/v1/users/:username/unfollow
+userRouter.post("/:username/unfollow", unfollowUser);
 
-// GET /api/v1/users/:id/followers
-userRouter.get("/:id/followers", getFollowers);
+// GET /api/v1/users/:username/followers
+userRouter.get("/:username/followers", getFollowers);
+
+// GET /api/v1/users/:username/following
+userRouter.get("/:username/following", getFollowing);
+
+// GET /api/v1/users/:username/suggestions
+userRouter.get("/:username/suggestions", getSuggestions);
 
 // GET /api/v1/users/:username -> Get public profile by username
 userRouter.get("/:username", getUserProfile);
