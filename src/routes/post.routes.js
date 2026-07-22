@@ -11,6 +11,11 @@ import {
   getExplorePosts,
   getUserPosts,
 } from "../controllers/postController/index.js";
+import {
+  likePost,
+  unlikePost,
+  getPostLikes,
+} from "../controllers/likeControllers/index.js";
 
 const postRouter = Router();
 
@@ -37,8 +42,16 @@ postRouter.route("/:id")
   .delete(deletePost)
   .patch(updatePost);
 
+// POST /api/v1/posts/:id/like -> Like a post
+postRouter.post("/:id/like", likePost);
+
+// POST /api/v1/posts/:id/unlike -> Unlike a post
+postRouter.post("/:id/unlike", unlikePost);
+
+// GET /api/v1/posts/:id/likes -> Get users who liked (Only post owner)
+postRouter.get("/:id/likes", getPostLikes);
+
 // GET /api/v1/posts/user/:usernameOrId -> Get specific user's posts
-// Note: We mount it on a subpath to prevent path namespace clash with /:id
 postRouter.get("/user/:usernameOrId", getUserPosts);
 
 export default postRouter;
