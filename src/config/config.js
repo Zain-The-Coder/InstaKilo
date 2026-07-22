@@ -14,6 +14,11 @@ const config = {
     authToken: process.env.TWILIO_AUTH_TOKEN || "",
     whatsappNumber: process.env.TWILIO_WHATSAPP_NUMBER || "",
   },
+  imagekit: {
+    publicKey: process.env.IMAGEKIT_PUBLIC_KEY || "",
+    privateKey: process.env.IMAGEKIT_PRIVATE_KEY || "",
+    urlEndpoint: process.env.IMAGEKIT_URL_ENDPOINT || "",
+  },
 };
 
 const requiredVars = ["mongodbUri"];
