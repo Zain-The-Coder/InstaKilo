@@ -16,6 +16,10 @@ import {
   unlikePost,
   getPostLikes,
 } from "../controllers/likeControllers/index.js";
+import {
+  addComment,
+  getComments,
+} from "../controllers/commentController/index.js";
 
 const postRouter = Router();
 
@@ -53,5 +57,11 @@ postRouter.get("/:id/likes", getPostLikes);
 
 // GET /api/v1/posts/user/:usernameOrId -> Get specific user's posts
 postRouter.get("/user/:usernameOrId", getUserPosts);
+
+// POST /api/v1/posts/:id/comments -> Add comment
+// GET /api/v1/posts/:id/comments -> Get post comments
+postRouter.route("/:id/comments")
+  .post(addComment)
+  .get(getComments);
 
 export default postRouter;

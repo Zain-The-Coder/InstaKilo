@@ -18,6 +18,12 @@ const commentSchema = new mongoose.Schema(
       maxlength: 1000,
       trim: true,
     },
+    likes: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
   },
   { timestamps: true }
 );
