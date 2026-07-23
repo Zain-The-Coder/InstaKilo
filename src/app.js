@@ -1,5 +1,6 @@
 import express from "express";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 import authRouter from "./routes/auth.routes.js";
 import userRouter from "./routes/user.routes.js";
 import postRouter from "./routes/post.routes.js";
@@ -9,6 +10,15 @@ import storyRouter from "./routes/story.routes.js";
 const app = express();
 
 // --- Core Middleware ---
+app.use(cors({
+  origin: [
+    "http://localhost:5173", // default Vite dev server
+    "http://localhost:3000", // local fallback
+    "http://127.0.0.1:5173",
+    "http://127.0.0.1:3000"
+  ],
+  credentials: true, // Allow cookies to be shared between frontend and backend
+}));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
