@@ -15,7 +15,8 @@ app.use(cors({
     "http://localhost:5173", // default Vite dev server
     "http://localhost:3000", // local fallback
     "http://127.0.0.1:5173",
-    "http://127.0.0.1:3000"
+    "http://127.0.0.1:3000",
+    "https://insta-kilo-frontend.vercel.app"
   ],
   credentials: true, // Allow cookies to be shared between frontend and backend
 }));
