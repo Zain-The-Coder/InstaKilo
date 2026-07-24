@@ -10,6 +10,9 @@ import {
   getFeedPosts,
   getExplorePosts,
   getUserPosts,
+  savePost,
+  unsavePost,
+  getSavedPosts,
 } from "../controllers/postController/index.js";
 import {
   likePost,
@@ -38,6 +41,9 @@ postRouter.get("/feed", getFeedPosts);
 // GET /api/v1/posts/explore -> Explore popular posts
 postRouter.get("/explore", getExplorePosts);
 
+// GET /api/v1/posts/saved -> Get user's saved posts
+postRouter.get("/saved", getSavedPosts);
+
 // GET /api/v1/posts/:id -> Get single post detail
 // DELETE /api/v1/posts/:id -> Delete a post
 // PATCH /api/v1/posts/:id -> Edit post caption
@@ -45,6 +51,12 @@ postRouter.route("/:id")
   .get(getPostById)
   .delete(deletePost)
   .patch(updatePost);
+
+// POST /api/v1/posts/:id/save -> Save a post
+postRouter.post("/:id/save", savePost);
+
+// POST /api/v1/posts/:id/unsave -> Unsave a post
+postRouter.post("/:id/unsave", unsavePost);
 
 // POST /api/v1/posts/:id/like -> Like a post
 postRouter.post("/:id/like", likePost);

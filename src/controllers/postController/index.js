@@ -6,3 +6,6 @@ export { updatePost } from "./updatePost.js";
 export { getFeedPosts } from "./getFeedPosts.js";
 export { getExplorePosts } from "./getExplorePosts.js";
 export { getUserPosts } from "./getUserPosts.js";
+export { savePost } from "./savePost.js";
+export { unsavePost } from "./unsavePost.js";
+export { getSavedPosts } from "./getSavedPosts.js";
