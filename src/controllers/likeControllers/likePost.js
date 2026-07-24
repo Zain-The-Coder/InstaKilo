@@ -1,4 +1,5 @@
 import Post from "../../models/post.model.js";
+import Notification from "../../models/notification.model.js";
 
 /**
  * @desc    Like a post
@@ -30,6 +31,16 @@ export const likePost = async (req, res) => {
     // Add user ID to likes array
     post.likes.push(currentUserId);
     await post.save();
+
+    // Create like notification if not own post
+    if (post.author.toString() !== currentUserId.toString()) {
+      await Notification.create({
+        sender: currentUserId,
+        receiver: post.author,
+        type: "like",
+        post: post._id,
+      });
+    }
 
     return res.status(200).json({
       success: true,

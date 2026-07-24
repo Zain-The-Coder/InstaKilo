@@ -1,5 +1,6 @@
 import Comment from "../../models/comment.model.js";
 import Post from "../../models/post.model.js";
+import Notification from "../../models/notification.model.js";
 
 /**
  * @desc    Add a comment to a post
@@ -37,6 +38,16 @@ export const addComment = async (req, res) => {
     // Reference comment in Post document
     post.comments.push(comment._id);
     await post.save();
+
+    // Create comment notification if not own post
+    if (post.author.toString() !== currentUserId.toString()) {
+      await Notification.create({
+        sender: currentUserId,
+        receiver: post.author,
+        type: "comment",
+        post: post._id,
+      });
+    }
 
     // Populate author details
     const populatedComment = await comment.populate(
