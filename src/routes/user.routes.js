@@ -12,6 +12,11 @@ import {
   getFollowing,
   getSuggestions,
 } from "../controllers/followController/index.js";
+import {
+  blockUser,
+  unblockUser,
+  getBlockedUsers,
+} from "../controllers/blockController/index.js";
 
 const userRouter = Router();
 
@@ -24,11 +29,20 @@ userRouter.route("/me")
   .get(getMyProfile)
   .patch(updateProfile);
 
+// GET /api/v1/users/me/blocked -> Get list of blocked users
+userRouter.get("/me/blocked", getBlockedUsers);
+
 // POST /api/v1/users/:username/follow
 userRouter.post("/:username/follow", followUser);
 
 // POST /api/v1/users/:username/unfollow
 userRouter.post("/:username/unfollow", unfollowUser);
+
+// POST /api/v1/users/:username/block
+userRouter.post("/:username/block", blockUser);
+
+// POST /api/v1/users/:username/unblock
+userRouter.post("/:username/unblock", unblockUser);
 
 // GET /api/v1/users/:username/followers
 userRouter.get("/:username/followers", getFollowers);
