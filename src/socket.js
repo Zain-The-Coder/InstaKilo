@@ -1,5 +1,6 @@
 import { Server } from "socket.io";
 import Message from "./models/message.model.js";
+import Notification from "./models/notification.model.js";
 
 const userSocketMap = {}; // userId -> socketId
 
@@ -37,6 +38,17 @@ export const initializeSocket = (server) => {
           text: text.trim(),
         });
 
+        // Create message notification
+        try {
+          await Notification.create({
+            sender: senderId,
+            receiver: receiverId,
+            type: "message",
+          });
+        } catch (notifErr) {
+          console.error("Failed to create message notification:", notifErr);
+        }
+
         // Broadcast to receiver if online
         const receiverSocketId = userSocketMap[receiverId];
         if (receiverSocketId) {
@@ -47,6 +59,22 @@ export const initializeSocket = (server) => {
         socket.emit("messageSent", message);
       } catch (err) {
         console.error("Error sending message via socket:", err);
+      }
+    });
+
+    // Handle marking messages as seen
+    socket.on("markMessagesSeen", async ({ senderId, receiverId }) => {
+      try {
+        await Message.updateMany(
+          { sender: senderId, receiver: receiverId, isSeen: false },
+          { $set: { isSeen: true } }
+        );
+        const senderSocketId = userSocketMap[senderId];
+        if (senderSocketId) {
+          io.to(senderSocketId).emit("messagesSeen", { senderId, receiverId });
+        }
+      } catch (err) {
+        console.error("Error marking messages seen:", err);
       }
     });
 
