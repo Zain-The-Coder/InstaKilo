@@ -17,6 +17,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start": "node index.js",
     "dev": "npx nodemon index.js"
   },
   "author": "Zain Ur Rehman",
