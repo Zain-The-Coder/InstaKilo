@@ -7,6 +7,7 @@ import postRouter from "./routes/post.routes.js";
 import commentRouter from "./routes/comment.routes.js";
 import storyRouter from "./routes/story.routes.js";
 import notificationRouter from "./routes/notification.routes.js";
+import messageRouter from "./routes/message.routes.js";
 
 const app = express();
 
@@ -37,6 +38,7 @@ app.use("/api/v1/posts", postRouter);
 app.use("/api/v1/comments", commentRouter);
 app.use("/api/v1/stories", storyRouter);
 app.use("/api/v1/notifications", notificationRouter);
+app.use("/api/v1/messages", messageRouter);
 
 // --- Multer & Global Error Handler Middleware ---
 app.use((err, req, res, next) => {

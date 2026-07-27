@@ -9,7 +9,8 @@
     "imagekit": "^6.0.0",
     "jsonwebtoken": "^9.0.3",
     "mongoose": "^9.8.0",
-    "multer": "^2.2.0"
+    "multer": "^2.2.0",
+    "socket.io": "^4.8.3"
   },
   "name": "backend",
   "version": "1.0.0",
